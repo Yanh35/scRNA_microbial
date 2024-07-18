@@ -21,23 +21,21 @@ r2=config['R2']
 
 rule all:
     input: 
-#        expand('result/step1/{sample}.kraken.report.txt', sample=sample),
-#        expand('result/step1/{sample}.kraken.report.mpa.txt', sample=sample),
-#        expand('result/step2/{sample}_1.fa', sample=sample),
-#        expand('result/step2/{sample}_2.fa', sample=sample),
-#        expand('result/step3/{sample}.microbiome.output.txt', sample=sample),
-#        expand('result/step4/{sample}.sckmer.txt', sample=sample),
-#        expand('result/step5/{sample}.barcode.kmer.hits.tsv', sample=sample),
-#        expand('result/step5/{sample}.kraken.report.rpmm.tsv', sample=sample),
-#        expand('result/step6/{sample}.cell_line_quantile_hits.tsv', sample=sample),
-#        expand('result/step6/{sample}.cell_line_quantile_hits_taxa.tsv', sample=sample),
-#       expand('result/step7/{sample}.counts.txt', sample=sample),
+        expand('result/step1/{sample}.kraken.report.txt', sample=sample),
+        expand('result/step1/{sample}.kraken.report.mpa.txt', sample=sample),
+        expand('result/step2/{sample}_1.fa', sample=sample),
+        expand('result/step2/{sample}_2.fa', sample=sample),
+        expand('result/step3/{sample}.microbiome.output.txt', sample=sample),
+        expand('result/step4/{sample}.sckmer.txt', sample=sample),
+        expand('result/step5/{sample}.barcode.kmer.hits.tsv', sample=sample),
+        expand('result/step5/{sample}.kraken.report.rpmm.tsv', sample=sample),
+        expand('result/step6/{sample}.cell_line_quantile_hits.tsv', sample=sample),
+        expand('result/step6/{sample}.cell_line_quantile_hits_taxa.tsv', sample=sample),
+        expand('result/step7/{sample}.counts.txt', sample=sample),
         expand('result/cellranger/{sample}.done',sample=sample)
 
 rule run_kraken:
     input: 
-#        join(fq_path, '{sample}_{r1}.fastq.gz'),
-#        join(fq_path, '{sample}_{r2}.fastq.gz')
         fq1 = lambda wildcards: join(fq_path, f"{wildcards.sample}_{r1}.fastq.gz"),
         fq2 = lambda wildcards: join(fq_path, f"{wildcards.sample}_{r2}.fastq.gz")
     output: 
