@@ -3,12 +3,15 @@ Since [SAHMI](https://github.com/sjdlabgroup/SAHMI) is optimized to run with Kra
 ## Human
 We used the [CHM13 human genome](https://github.com/marbl/CHM13) as the reference, and the file [chm13v2.0.fa.gz](https://s3-us-west-2.amazonaws.com/human-pangenomics/T2T/CHM13/assemblies/analysis_set/chm13v2.0.fa.gz) was downloaded.
 ## Bacteria
-`./kraken2/kraken2-build --download-library bacteria --db ./DATABASE`
+`./kraken2/kraken2-build --download-library bacteria --db ./DATABASE/library`
 ## Viral
 We obtained 15,037 RefSeq genome IDs from the [NCBI Virus](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/virus?SeqType_s=Genome&SourceDB_s=RefSeq) and ultimately downloaded 18,524 sequences.
-##
-`kraken2/kraken2-build --download-taxonomy  --db ./DATABASE`
-
+## NCBI Taxonomy database dump
+```
+wget https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz
+tar -zxvf taxdump.tar.gz
+mv  taxdump ./DATABASE
+```
 
 The downloaded human and viral sequences need to have their FASTA headers changed to the string kraken:taxid|XXX, with XXX replaced by the desired taxon ID. 
 Next, use `kraken2-build --build --db ./DATABASE` to construct the database.
