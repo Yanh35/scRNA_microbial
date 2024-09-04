@@ -11,12 +11,12 @@ decontam=read.csv(argv[1],header = T,sep = '\t')
 
 
 
-#path=paste0('result/step6_sample_v5/',i,'.cell_line_quantile_hits.tsv')
+
 cell=read.csv(argv[2],header = T,sep='\t')
 cell$decontamn <- ifelse(cell$taxid %in% decontam$taxid, 
                           decontam[match(cell$taxid, decontam$taxid),]$p, NA)
 
-#path <- paste('result/cellranger/',i, "/outs/filtered_feature_bc_matrix", sep = '')
+
 data <- Read10X(data.dir = argv[3])
 seurat_object <- CreateSeuratObject(counts = data, project = i, min.cells = 0, min.features = 0) 
 seurat_object[["percent.mt"]] <- PercentageFeatureSet(seurat_object, pattern = "^MT-")
