@@ -1,4 +1,4 @@
-config_path: /hdd/micro/SAHMI/scrna/sahmi_config_PRJ.yaml
+config_path: /hdd/micro/SAHMI/scrna/config_PRJ.yaml
 Output_dir: /hdd/micro/SAHMI/scrna/PRJ
 fq_path: /hdd/micro/dataset/PRJ
 ncbi_blast: /hdd/envs/Scasa/bin
