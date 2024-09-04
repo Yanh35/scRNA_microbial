@@ -5,7 +5,6 @@ library(readr)
 library(readxl)
 library(scales)
 library(repr)
-library(ggplot2)
 library("decontam")
 library("reshape2")
 library("stats")
@@ -14,9 +13,9 @@ sam=unlist(strsplit(argv[1], ","))
 
 
 args <- list(
-  resout = argv[2],  # 输出结果的文件名
-  threshold = as.numeric(argv[3]) ,  # 阈值
-  verbose = TRUE# 是否打印额外输出
+  resout = argv[2], 
+  threshold = as.numeric(argv[3]) , 
+  verbose = TRUE
 )
 
 
@@ -57,16 +56,12 @@ for (i in sam){
   root=data[which(data$V7 == 1),][1,3]
   cellular=data[which(data$V7 == 131567),][1,3]
   bacviru=sum(data[which(data$V7 %in% c(2,10239)),]$V2)
-  reads=unclass+human+root+cellular+bacviru
-  count=as.numeric(c(unclass,human,root,cellular,bacviru,reads))
+  count=as.numeric(c(unclass,human,root,cellular,bacviru))
   micro=rbind(micro,count)
 }
-colnames(micro)=c('unclassified','human','root','cellular','bacviru','reads')
+colnames(micro)=c('unclassified','human','root','cellular','bacviru')
 micro$sample=sam
-#micro$unclssified_percent=micro$unclassified/micro$reads
-#micro$human_percent=micro$human/micro$reads
-#micro$root_cellular_bacviru=rowSums(data.frame(micro$bacviru,micro$root,micro$cellular))
-#micro$root_cellular_bacviru_percent=micro$root_cellular_bacviru/micro$reads
+
 
 concentrations <- micro
 concentrations=concentrations[,c('sample','bacviru')]
