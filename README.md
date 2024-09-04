@@ -32,3 +32,8 @@ group_by(name,rank)%>%
 summarize(CLrpmm = 10^quantile(log10(rpmm),qtile, na.rm = T),
 .groups = 'keep')
 ```
+
+# 3 DCONTAM
+The Frequency Approach of R package [DECONTAM](https://github.com/benjjneb/decontam) was used in the process for decontamination. DECONTAM uses linear models based on the assumptions and frequencies of the data and outputs a score for each observation to define contamination. If DNA concentration is not provided, total counts are used instead as an indirect concentration value replacement<sup>[1]</sup>.
+
+[1] Piro VC, Renard BY. Contamination detection and microbiome exploration with GRIMER. Gigascience. 2022 Dec 28;12:giad017. doi: 10.1093/gigascience/giad017. Epub 2023 Mar 30. PMID: 36994872; PMCID: PMC10061425. https://pubmed.ncbi.nlm.nih.gov/36994872/
