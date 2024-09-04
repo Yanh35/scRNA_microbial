@@ -237,7 +237,9 @@ rule cellranger:
         threads:  4
         shell:
                 '''
-/hdd/cheng/projects/MPXV/software/cellranger-7.2.0/cellranger count --id={params.sam} --transcriptome=/hdd/data/reference/Ensembl-GRCh38-2020A/refdata-gex-GRCh38-2020-A/ \
+/hdd/cheng/projects/MPXV/software/cellranger-7.2.0/cellranger count \
+--id={params.sam} \
+--transcriptome=/hdd/data/reference/Ensembl-GRCh38-2020A/refdata-gex-GRCh38-2020-A/ \
 --fastqs={fq_path}/ \
 --sample={params.sam} \
 --output-dir={params.outdir}
