@@ -10,7 +10,7 @@ argv=commandArgs(T)
 decontam=read.csv(argv[1],header = T,sep = '\t') 
 
 
-i='SRR11770299'
+
 #path=paste0('result/step6_sample_v5/',i,'.cell_line_quantile_hits.tsv')
 cell=read.csv(argv[2],header = T,sep='\t')
 cell$decontamn <- ifelse(cell$taxid %in% decontam$taxid, 
