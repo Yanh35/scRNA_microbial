@@ -1,1 +1,1 @@
-snakemake -s scrna_micro.smk --cores 12  --configfile sahmi_config_PRJ.yaml
+snakemake -s scrna_micro.smk --cores 12  --configfile config_PRJ.yaml
