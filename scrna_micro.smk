@@ -21,12 +21,12 @@ r2=config['R2']
 
 rule all:
     input:
-#        expand('result/step1/{sample}.kraken.report.txt', sample=sample),
-#        expand('result/step1/{sample}.kraken.report.mpa.txt', sample=sample),
-#        expand('result/step2/{sample}_1.fa', sample=sample),
-#        expand('result/step2/{sample}_2.fa', sample=sample),
-#        expand('result/step3/{sample}.microbiome.output.txt', sample=sample),
-#        expand('result/step4/{sample}.sckmer.txt', sample=sample), 
+        expand('result/step1/{sample}.kraken.report.txt', sample=sample),
+        expand('result/step1/{sample}.kraken.report.mpa.txt', sample=sample),
+        expand('result/step2/{sample}_1.fa', sample=sample),
+        expand('result/step2/{sample}_2.fa', sample=sample),
+        expand('result/step3/{sample}.microbiome.output.txt', sample=sample),
+        expand('result/step4/{sample}.sckmer.txt', sample=sample), 
         expand('result/step5_v4/{sample}.barcode.kmer.hits.tsv', sample=sample),
         expand('result/step5_v4/{sample}.kraken.report.rpmm.tsv', sample=sample),
         'result/sample_denoising_v5/sample_denoising.txt',
@@ -34,13 +34,11 @@ rule all:
         expand('result/step6_sample_v5/{sample}.cell_line_quantile_hits_taxa.tsv', sample=sample),
         expand('result/step7_sample_v5/{sample}.counts.txt', sample=sample),
 	'result/decontamn_sample_v5/decontamn.txt',
-#        expand('result/cellranger/{sample}.done',sample=sample),
+        expand('result/cellranger/{sample}.done',sample=sample),
         expand('result/sahmi_cellranger/{sample}_sahmi_cellranger.txt',sample=sample),
 
 rule run_kraken:
     input: 
-#        join(fq_path, '{sample}_{r1}.fastq.gz'),
-#        join(fq_path, '{sample}_{r2}.fastq.gz')
         fq1 = lambda wildcards: join(fq_path, f"{wildcards.sample}_{r1}.fastq.gz"),
         fq2 = lambda wildcards: join(fq_path, f"{wildcards.sample}_{r2}.fastq.gz")
     output: 
