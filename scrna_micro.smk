@@ -34,7 +34,7 @@ rule all:
         expand('result/step7_sample_v5/{sample}.counts.txt', sample=sample),
 	'result/decontamn_sample_v5/decontamn.txt',
         expand('result/cellranger/{sample}.done',sample=sample),
-        expand('result/sahmi_cellranger/{sample}_sahmi_cellranger.txt',sample=sample),
+        expand('result/micro_cellranger/{sample}_sahmi_cellranger.txt',sample=sample),
 
 rule run_kraken:
     input: 
@@ -244,16 +244,16 @@ rule cellranger:
                 '''
 
 
-rule sahmi_cellranger:
+rule micro_cellranger:
     input: 'result/decontamn_sample_v5/decontamn.txt',
         'result/cellranger/{sample}.done',
         'result/step7_sample_v5/{sample}.counts.txt',
         'result/step6_sample_v5/{sample}.cell_line_quantile_hits.tsv',
         'result/cellranger/{sample}/outs/filtered_feature_bc_matrix'
-    output: 'result/sahmi_cellranger/{sample}_sahmi_cellranger.txt'
+    output: 'result/micro_cellranger/{sample}_sahmi_cellranger.txt'
     threads: 2
     shell:
         '''
-Rscript functions/sahmi_cellranger.r  {input[0]} {input[3]} {input[4]} {input[2]} {output}
+Rscript functions/micro_cellranger.r  {input[0]} {input[3]} {input[4]} {input[2]} {output}
         '''
 
