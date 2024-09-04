@@ -7,7 +7,7 @@ library(scales)
 library(Seurat)
 library(reshape2)
 argv=commandArgs(T)
-decontam=read.csv(argv[1],header = T,sep = '\t') #result/decontamn_sample_v5/decontamn.txt
+decontam=read.csv(argv[1],header = T,sep = '\t') 
 
 
 i='SRR11770299'
@@ -67,7 +67,7 @@ if (sum(s1$include_cellranger == 'Y') < 2 || sum(s1$include_cellranger == 'N') <
   ttest_t=NA
   ttest_p=NA
 } else {
-ttest<-with(s1, t.test( umis ~ include_cellranger ) ) ###cellranger barcode.include tax vs not include tax
+ttest<-with(s1, t.test( umis ~ include_cellranger ) )
 ttest_t=ttest$statistic[[1]]
 ttest_p=ttest$p.value[[1]]}
 
@@ -80,7 +80,7 @@ col_cell=colnames(cell)
 cell=cbind(cell,result_df)
 colnames(cell)=c(col_cell,'tax_umi_include_cellranger','tax_umi_exclude_cellranger','tax_umi_cellranger_t','tax_umi_cellranger_p')
 
-mg=read.csv('/hdd/yanhuan/micro/software/SAHMI/mgnify_modified.txt',header = T,sep='\t')
+mg=read.csv('mgnify_modified.txt',header = T,sep='\t')
 cell$mgnify <- ifelse(cell$name %in% mg$taxonomy, 
                          mg[match(cell$name, mg$taxonomy),]$tax_study, '')
 
