@@ -8,7 +8,6 @@ import subprocess
 workdir: config['Output_dir']
 config_path = config["config_path"]
 Output_dir = config['Output_dir']
-SAHMI = config['SAHMI']
 fq_path = config['fq_path']
 ncbi_blast = config['ncbi_blast']
 Kraken2Uniq_path = config['Kraken2Uniq_path']
@@ -54,7 +53,7 @@ rule run_kraken:
     shell:
         '''
         mkdir -p {params.outdir}
-        Rscript {SAHMI}/functions/run_kraken.r \
+        Rscript functions/run_kraken.r \
         --sample {params.sam} \
         --fq1 {input[0]} \
         --fq2 {input[1]} \
@@ -62,7 +61,7 @@ rule run_kraken:
         --ncbi_blast_path {ncbi_blast} \
         --Kraken2Uniq_path {Kraken2Uniq_path} \
         --kraken_database_path {kraken_database_path} \
-        --kreport2mpa_path {SAHMI}/functions/kreport2mpa.py \
+        --kreport2mpa_path functions/kreport2mpa.py \
         --paired T
         '''
 
@@ -81,7 +80,7 @@ rule extract:
     threads: 4
     shell:
         '''
-        Rscript {SAHMI}/functions/extract_microbiome_reads.r \
+        Rscript functions/extract_microbiome_reads.r \
         --sample_name {params.sam}_1 \
         --fq {input[2]} \
         --kraken_report {input[0]} \
@@ -89,7 +88,7 @@ rule extract:
         --out_path {params.outdir}
 
 
-        Rscript {SAHMI}/functions/extract_microbiome_reads.r \
+        Rscript functions/extract_microbiome_reads.r \
         --sample_name {params.sam}_2 \
         --fq {input[3]} \
         --kraken_report {input[0]} \
@@ -110,7 +109,7 @@ rule extract_microbiome_output:
     threads: 4
     shell:
         '''
-        Rscript {SAHMI}/functions/extract_microbiome_output.r --sample_name {params.sam} \
+        Rscript functions/extract_microbiome_output.r --sample_name {params.sam} \
         --output_file {input[2]} \
         --kraken_report {input[0]} \
         --mpa_report {input[1]} \
@@ -132,7 +131,7 @@ rule sckmer:
     threads: 4
     shell:
         '''
-        Rscript {SAHMI}/functions/sckmer.r --sample_name={params.sam} \
+        Rscript functions/sckmer.r --sample_name={params.sam} \
         --fa1={input[0]} \
         --fa2={input[1]} \
         --microbiome_output_file={input[4]} \
@@ -157,7 +156,7 @@ rule barcode_denoising:
     threads: 4
     shell:
         '''
-        Rscript {SAHMI}/functions/barcode_denoising_v4.r {SAHMI}/functions/read_kraken_reports.r {input[0]} {input[1]} {output[0]} {output[1]}
+        Rscript functions/barcode_denoising_v4.r functions/read_kraken_reports.r {input[0]} {input[1]} {output[0]} {output[1]}
         '''
 
 rule sample_denoising:
@@ -169,7 +168,7 @@ rule sample_denoising:
 	threads: 4
 	shell:
 		'''
-Rscript {SAHMI}/functions/sample_denoising_v5.r {params.sam} {params.outdir}
+Rscript functions/sample_denoising_v5.r {params.sam} {params.outdir}
 		'''
 
 
@@ -186,7 +185,7 @@ rule cell_line_quantile_test:
     threads: 4
     shell:
         '''
-        Rscript {SAHMI}/functions/cell_line_quantile_test_v5.r {input[0]} {input[1]} '' {output[0]} {output[1]} {input[2]} {input[3]}
+        Rscript functions/cell_line_quantile_test_v5.r {input[0]} {input[1]} '' {output[0]} {output[1]} {input[2]} {input[3]}
         '''
 
 rule taxa_counts:
@@ -204,7 +203,7 @@ rule taxa_counts:
     threads: 4
     shell:
         '''
-        Rscript {SAHMI}/functions/taxa_counts.r \
+        Rscript functions/taxa_counts.r \
         --sample_name {params.sam} \
         --fa1 {input[0]} \
         --fa2 {input[1]} \
@@ -225,7 +224,7 @@ rule decontamn:
     threads: 4
     shell:
         '''
-Rscript {SAHMI}/functions/decontamn.r {params.sam} {output} 0.1
+Rscript functions/decontamn.r {params.sam} {output} 0.1
         '''
 
 
@@ -255,6 +254,6 @@ rule sahmi_cellranger:
     threads: 2
     shell:
         '''
-Rscript {SAHMI}/functions/sahmi_cellranger.r  {input[0]} {input[3]} {input[4]} {input[2]} {output}
+Rscript functions/sahmi_cellranger.r  {input[0]} {input[3]} {input[4]} {input[2]} {output}
         '''
 
