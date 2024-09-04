@@ -1,6 +1,5 @@
 config_path: /hdd/micro/SAHMI/scrna/sahmi_config_PRJ.yaml
 Output_dir: /hdd/micro/SAHMI/scrna/PRJ
-SAHMI: /hdd/micro/software/SAHMI
 fq_path: /hdd/micro/dataset/PRJ
 ncbi_blast: /hdd/envs/Scasa/bin
 Kraken2Uniq_path: /hdd/micro/software/kraken2/kraken2
