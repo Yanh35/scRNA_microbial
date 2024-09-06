@@ -50,16 +50,13 @@ micro=data.frame()
 for (i in sam){
   path=paste('result/step1/',i,'.kraken.report.txt',sep='')
   data=read.csv(path,header = F,sep='\t')
-  unclass=data[which(data$V7 == 0),][1,2]
   class=data[which(data$V7 == 1),][1,2]
   human=data[which(data$V7 == 9606),][1,3]
-  root=data[which(data$V7 == 1),][1,3]
-  cellular=data[which(data$V7 == 131567),][1,3]
   bacviru=sum(data[which(data$V7 %in% c(2,10239)),]$V2)
-  count=as.numeric(c(unclass,human,root,cellular,bacviru))
+  count=as.numeric(c(,human,bacviru))
   micro=rbind(micro,count)
 }
-colnames(micro)=c('unclassified','human','root','cellular','bacviru')
+colnames(micro)=c('human','bacviru')
 micro$sample=sam
 
 
