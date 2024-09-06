@@ -5,17 +5,9 @@ library(tidyverse)
 library(readr)
 
 
-#cell.lines = read.delim('/hdd/yanhuan/micro/software/SAHMI/cell.lines.txt', header = T,sep=' ') %>% tibble() 
-#cell.lines=cell.lines %>% 
-#    filter (reads>0 & uniq >0)
-#qtile = 0.90
-#q_df = cell.lines %>%
-#group_by(name,rank)%>%
-#summarize(CLrpmm = 10^quantile(log10(rpmm),qtile, na.rm = T),
-#.groups = 'keep')
 
 
-q_df=read.delim('/hdd/yanhuan/micro/software/SAHMI/cell_line_quantile.txt', header = T,sep='\t') %>% tibble()
+q_df=read.delim('cell_line_quantile.txt', header = T,sep='\t') %>% tibble()
 q_df=q_df[,c('name','rank','threshold_0.90_exclude0')]
 colnames(q_df)=c('name','rank','CLrpmm')  
 kr=read.csv(argv[2],header=T,sep='\t') 
